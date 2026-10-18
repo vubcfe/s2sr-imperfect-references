@@ -48,7 +48,7 @@ image registration}
 
 \maketitle
 
-%% German abstract required by PFG (editorial template). DRAFT, to be checked by a German speaker.
+%% German abstract required by PFG (editorial template); checked by the authors.
 \noindent\textbf{Zusammenfassung}\quad Hochaufgelöste Referenzen für die 20-m-Kanäle von Sentinel-2 (Red Edge,
 schmales Nahinfrarot und kurzwelliges Infrarot) sind seit Kurzem durch flugzeuggestützte bildgebende Spektroskopie
 verfügbar und ermöglichen das überwachte Training und die Bewertung von Super-Resolution-Netzwerken für diese Kanäle.
@@ -66,8 +66,8 @@ korrigierten Referenzen die Hochpasskorrelation um 0,043; gemessen an der unver�
 0,035. Ein
 verstärkungsinvarianter Hochpassverlust lieferte die beste Struktur und unter den mit realen Referenzen trainierten Modellen die beste
 Konsistenz mit den beobachteten 20-m-Kanälen, jedoch eine geringere Genauigkeit im reduzierten Maßstab
-(Wald-Protokoll). Verschiebungstolerante Verluste, Destillation privilegierter Information und Vortraining auf Simulationen
-verbesserten das einfache L1-Training mit korrigierten Referenzen nicht.
+(Wald-Protokoll). Verschiebungstolerante Verluste, Destillation privilegierter Information und, bei festem Schrittbudget, Vortraining auf
+Simulationen verbesserten das einfache L1-Training mit korrigierten Referenzen nicht.
 
 \section{Introduction}\label{sec:intro}
 
@@ -120,14 +120,14 @@ Fig.~\ref{fig:overview} summarises the study. Two of our pre-specified hypothese
 them as such and separate the one post-hoc analysis from the confirmatory results. We release code, the site split,
 the tile shifts and gains, the corrected references and the evaluation protocol.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig1_overview.pdf}
 \caption{Overview of the study. Each row follows one error of the SEN2NEON reference from the processing step that
 causes it, through what the error analysis (E0) found and how it is corrected, to the experiments that test its
 consequences in simulation, where the target is known by construction (E1, E1-R), and on real data (E2).}
 \label{fig:overview}
-\end{figure}
+\end{figure*}
 
 \section{Related work}\label{sec:related}
 
@@ -269,7 +269,7 @@ references small (Section~\ref{sec:res-errors}).
 
 Table~\ref{tab:flow} lists every tile subset used in the paper.
 
-\begin{table}[t]
+\begin{table*}[t]
 \caption{Tile subsets. $|\Delta t|$: days between the airborne and the Sentinel-2 acquisitions.}\label{tab:flow}
 \footnotesize\setlength{\tabcolsep}{3pt}
 \begin{tabular*}{\textwidth}{@{\extracolsep\fill}lrl}
@@ -287,7 +287,7 @@ Domain S & 1,273 & 1,019 training and 254 validation tiles (simulated) \\
 \quad E1 evaluation & 181 & domain S validation tiles of NOGP and SRER \\
 \botrule
 \end{tabular*}
-\end{table}
+\end{table*}
 
 \paragraph{Simulated domain.} To study the effect of reference errors where the target is known, we built a
 self-aligned domain from the airborne reference itself (domain S): the target $y^S$ is the 10\,m aggregate of the
@@ -389,6 +389,12 @@ Adam (learning rate $10^{-4}$, 1,000 warm-up steps, cosine decay), batches of 16
 (1.28\,km), single-precision storage with TF32 convolutions, and the final checkpoint; no checkpoint is selected
 on test data. The number of steps was fixed from learning curves on validation sites.
 
+\paragraph{Implementation and use of AI tools.} All code is written in Python with PyTorch and is available with the
+configurations and tests (Declarations). The authors used Anthropic Claude to assist in writing the experiment and
+analysis code and in drafting the text from the authors' results and outline; all code was reviewed and tested, and
+all text and numbers were revised and verified by the authors. The study concept and the analysis and interpretation
+of the results are the authors' own.
+
 \subsection{Strategies}
 
 Table~\ref{tab:methods} lists the strategies and where each was run. Naive-L1 uses the reference as released;
@@ -414,7 +420,7 @@ data. Auxiliary weights were chosen on two validation sites of domain S (CLBJ, D
 real data (Appendix~\ref{app:losses}). Mimicked Alignment \citep{elezabi2024mimicked} was not run, because the measured misalignment is essentially
 a tile translation that registration removes.
 
-\begin{table}[t]
+\begin{table*}[t]
 \caption{Training strategies and the experiments in which they were run. All use the same student, LFC, Wald loss
 ($\lambda_W=1$), 20,000 student steps, batch and crop. In E1 the targets are those of domain S (clean, corrupted or
 registered); in E2, $y_c$ is the corrected reference (Eq.~\ref{eq:gain}), $\rreg$ the registered reference with the
@@ -440,7 +446,7 @@ B-sim & L1 to the simulated target (domain S only) & -- & yes & 0 real steps \\
 B-sim+FT & 10k steps B-sim, then 10k Shift-L1 on real data & -- & yes & 10k real steps \\
 \botrule
 \end{tabular*}
-\end{table}
+\end{table*}
 
 \subsection{Experiments}
 
@@ -521,14 +527,14 @@ $|\Delta t|$ of 16--40 days. Surface change is a plausible cause; changes of ill
 grow with $|\Delta t|$ and cannot be separated here. For $|\Delta t|\le7$ days, a single translation per tile
 describes the misregistration.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig2_geometry.pdf}
 \caption{Geometric error of the SEN2NEON reference (2,100 tiles). (a) Magnitude of the per-tile translation between
 the degraded reference and Sentinel-2 for the 10\,m guide bands and the 20\,m target bands. (b) Residual
 misregistration in $640\times640$\,m blocks after removing the tile translation, by time between acquisitions
 (median and interquartile range; 220, 164, 220 and 1,496 tiles per bin).}\label{fig:geometry}
-\end{figure}
+\end{figure*}
 
 \paragraph{Contrast.} Fig.~\ref{fig:harmonisation} tests Eq.~\eqref{eq:ols} at the fitting grid of SEN2NEON:
 per tile, the ratio of the reference to the interpolated Sentinel-2 standard deviation at 2.5\,m follows their
@@ -544,17 +550,17 @@ Eq.~\eqref{eq:gain} is 0.53--0.63 (Table~\ref{tab:errors}; interquartile ranges 
 reference carries little more than half of the Sentinel-2 contrast, with a large spread between tiles. Registration
 alone raises the high-pass correlation between the degraded reference and Sentinel-2 by about 0.03--0.04.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig3_harmonisation.pdf}
 \caption{The harmonisation regression explains the contrast of the reference. Each point is a tile: ratio of the
 standard deviation of the SEN2NEON reference to that of the bilinearly interpolated Sentinel-2 image at 2.5\,m
 against their correlation $R$. The dashed line is the prediction of Eq.~\eqref{eq:ols}.}\label{fig:harmonisation}
-\end{figure}
+\end{figure*}
 
 %% Sources: results/p6_e0/harmonisation_check_2p5m.md (rows 1-2), results/p6_paper_facts/facts.md (row 3),
 %% results/p6_e0/summary.md, radiometry table of the cloud-clean subset (rows 4-5: hp_corr_raw, hp_corr).
-\begin{table}[t]
+\begin{table*}[t]
 \caption{Reference errors per target band (medians). Rows 1--2: correlation and standard deviation ratio of the
 reference and the interpolated Sentinel-2 image at 2.5\,m (2,100 tiles). Row 3: compression factor of the registered
 reference against native Sentinel-2 at 20\,m (Eq.~\ref{eq:gain}; the 1,253 tiles of the site split for which it was
@@ -573,7 +579,7 @@ HP-corr, as released & 0.792 & 0.721 & 0.723 & 0.724 & 0.807 & 0.832 \\
 HP-corr, registered & 0.824 & 0.758 & 0.760 & 0.766 & 0.845 & 0.861 \\
 \botrule
 \end{tabular*}
-\end{table}
+\end{table*}
 
 \paragraph{Is one compression factor per tile enough?} Three checks support Eq.~\eqref{eq:gain}. In E1-R, where the true
 compression $m$ is known, $\hat a$ recovered it closely: over 1,524 validation tile-bands, $\hat a/m$ had a median
@@ -618,7 +624,7 @@ supervision scale: training only at the reduced scale (Wald) gave, in S0--S2, an
 descriptive tile-level intervals (Section~\ref{sec:method-training}).
 
 %% Source: runs/p6_e1/summary_eval.md (seed 0, 181 tiles, tile means) and its seed replication table.
-\begin{table}[t]
+\begin{table*}[t]
 \caption{E1 on domain S: HP-corr against the clean target (tile means over 181 tiles of two validation sites,
 seed 0). S0: clean target; S1: tile shift; S2: realistic (shift, non-rigid, change); S3: stress. Bold: best per
 scenario. Edge S2: edge-position error in S2, used by the H2 rule. Three-seed means in S2: Shift-L1 0.9696, Reg-L1 0.9679, P6 (global) 0.9666, Naive-L1 0.9648 (seed sd
@@ -638,7 +644,7 @@ P6 (local) & 0.9662 & 0.9674 & 0.9672 & 0.9631 & 0.547 \\
 P6 (global) & 0.9659 & 0.9673 & 0.9669 & 0.9627 & 0.547 \\
 \botrule
 \end{tabular*}
-\end{table}
+\end{table*}
 
 \paragraph{Harmonisation, training (E1-R).} Training on the harmonised target lowered the structural quality of the
 predictions, scored against the true target (Table~\ref{tab:e1r}): HP-corr fell from 0.9768 to 0.9693 and the edge
@@ -651,9 +657,10 @@ input and compressed target appears as distorted rather than attenuated detail. 
 $y_h$ was the best model, above L1 on the clean target in both HP-corr and HP-PSNR.
 
 %% Source: runs/p6_e1r/analysis/summary.md (part A; reg_hp_h with the corrected loss); site means.
-\begin{table}[t]
+\begin{table*}[t]
 \caption{E1-R on domain S: effect of the harmonisation on training, scored against the true target (two validation
 sites, mean of site means; mean $\pm$ sd over three seeds).}\label{tab:e1r}
+\footnotesize
 \begin{tabular*}{\textwidth}{@{\extracolsep\fill}lcccc}
 \toprule
 Training target & HP-PSNR (dB) & HP-corr & HP-gain & Edge error (px) \\
@@ -664,7 +671,7 @@ L1, inverted $y_{\mathrm{inv}}$ & $56.59\pm0.01$ & $0.9768\pm0.0002$ & $1.089\pm
 Reg-HP, harmonised $y_h$ & $56.89\pm0.04$ & $0.9807\pm0.0001$ & $1.084\pm0.003$ & $0.470\pm0.001$ \\
 \botrule
 \end{tabular*}
-\end{table}
+\end{table*}
 
 \paragraph{Harmonisation, evaluation (E1-R).} The more serious effect is on evaluation (Fig.~\ref{fig:rankflip}).
 When the same 22 models were scored against the harmonised reference instead of the true one, their ranking by
@@ -677,13 +684,13 @@ inverted reference the ranking was preserved ($\tau=1.00$, interval 0.99--1.00),
 recovery above; the ranking by HP-corr, which is invariant to the gain, was identical for all three references.
 Ranks are by tile means with seeds averaged (runs/p6\_e1r/analysis/tau\_ci.md in the released material).
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=0.62\textwidth]{figures/fig4_rank_flip.pdf}
 \caption{Ranking of 22 models by HP-PSNR on domain S when scored against the true target (left) and against the
 target harmonised as in SEN2NEON (right). Highlighted: the model trained on the harmonised target, FDL and
 Shift-L1.}\label{fig:rankflip}
-\end{figure}
+\end{figure*}
 
 \section{Results: real data}\label{sec:res-real}
 
@@ -711,7 +718,7 @@ ranking nearly so ($\tau=0.94$), as the edge metric is sensitive to registration
 
 %% Sources: runs/p6_e2/analysis/summary.md, runs/p6_e2_posthoc/analysis/summary.md (site means, test sites) and
 %% runs/p6_e2/analysis/gpt_revision_summary.md (Bicubic row, Full res. column).
-\begin{table}[t]
+\begin{table*}[t]
 \caption{E2 on the nine real test sites (151 tiles). Learned methods were run with three seeds (mean over seeds;
 largest seed sd: HP-corr 0.003, HP-PSNR 0.17\,dB, edge 0.015\,px, HP-gain 0.015, full-resolution PSNR 0.15\,dB, Wald
 fidelity 0.49\,dB); Bicubic is deterministic. HP-PSNR, HP-corr, edge and HP-gain
@@ -740,16 +747,16 @@ Reg-HP ($\lambda_W=1$) & 41.45 & \textbf{0.8364} & \textbf{1.228} & 1.12 & 40.65
 Reg-HP ($\lambda_W=30$)$^\dagger$ & 41.38 & 0.8354 & 1.233 & 1.13 & 40.53 & 0.7886 & 48.72 & 47.47 \\
 \botrule
 \end{tabular*}
-\end{table}
+\end{table*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_e2.pdf}
 \caption{E2 on the nine real test sites. (a) HP-corr against the corrected reference; (b) HP-PSNR against the
 corrected reference and against the reference with the contrast as delivered; (c) reduced-scale (Wald) fidelity. Dots: mean
 over three seeds; bars: range over seeds.}
 \label{fig:e2}
-\end{figure}
+\end{figure*}
 
 \paragraph{Strategies.} Intervals in this paragraph are hierarchical-bootstrap intervals; site counts refer to
 the nine paired site differences. With the corrected reference, Reg-L1, Shift-L1 and P6 were close. Shift-L1, the best loss in
@@ -769,14 +776,14 @@ observed bands even more closely (56.9 and 51.2\,dB) but with much lower structu
 than Sentinel-2, Naive-L1 reproduces this flat appearance, the Wald model adds spurious texture, and the methods
 trained on the corrected reference recover the field boundaries and small structures.
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig6_qualitative.pdf}
 \caption{Test crop of $640\times640$\,m at OAES (bands B8A, B11, B12; seed-0 models). The tile was chosen by a rule
 fixed before viewing: among test tiles in the top quartile of reference detail, the one whose Reg-L1 HP-corr is
 closest to the median of that group; the crop is the window with the most reference detail. One grey stretch per
 band, from the corrected reference.}\label{fig:qualitative}
-\end{figure}
+\end{figure*}
 
 \paragraph{Pre-specified hypotheses.} The intervals in this paragraph are the pre-specified site bootstrap of
 seed-averaged site means. H1 was not supported. Reg-HP beat Wald on both co-primary endpoints
@@ -893,10 +900,8 @@ observations.
 \begin{itemize}
 \item Funding: The authors did not receive support from any organization for the submitted work.
 \item Competing interests: The authors declare no competing interests.
-\item Use of AI tools: The authors used Anthropic Claude to assist in writing the experiment and analysis code; all
-code was reviewed and verified by the authors. Claude also assisted in drafting the text from the authors' results
-and outline, and AI tools were used to correct spelling and grammar; the authors revised and verified all text and
-numbers. The study concept and the analysis and interpretation of the results are the authors' own.
+\item Ethics approval and consent to participate: Not applicable.
+\item Use of AI tools: described in Section~\ref{sec:method-training} (Implementation and use of AI tools).
 \item Data availability: SEN2NEON is available under CC-BY-4.0 \citep{donike2026sen2neon}. The derived data are
 released under the same licence, with attribution: the per-tile shifts, compression factors, site split and all
 per-run results are in the code repository (below); the corrected references of domain~R and the weights of all
@@ -905,7 +910,7 @@ latest on publication.
 \item Code availability: The code, the configurations with the pre-specified analysis rules and their freeze dates
 (E1: 12 October 2026; E2: 14 October 2026, with a dated amendment on 15 October 2026 for the Reg-HP implementation
 fix; post hoc: 17 October 2026), the analysis outputs and the tests are available at \url{https://github.com/vubcfe/s2sr-imperfect-references} and archived on Zenodo
-(\url{https://doi.org/10.5281/zenodo.23448595}).
+\citep{bui2026code}.
 \item Author contributions: C.V.B.: conceptualization, methodology, software, investigation, formal analysis,
 writing (original draft). H.-A.-V.N.: validation, formal analysis, writing (review and editing). All authors read
 and approved the final manuscript.
