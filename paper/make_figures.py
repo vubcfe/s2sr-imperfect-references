@@ -1,6 +1,6 @@
 """Figures for the P6 paper (PFG). Every number is read from the result files; nothing is typed in.
 
-  code/s2sr_bench/.venv/bin/python papers/P6_privileged_distillation/paper_pfg/figures/make_figures.py
+  python paper/make_figures.py   # from the repository root
 
 Writes fig*.pdf (vector) and fig*.png (preview) next to this script. Widths follow PFG: 62 mm (one column) or
 130 mm (two columns).
