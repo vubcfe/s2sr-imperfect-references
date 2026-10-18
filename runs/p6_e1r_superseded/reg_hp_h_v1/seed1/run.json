@@ -1,0 +1,12 @@
+{
+  "scenario": "S4_harmonized",
+  "method": "reg_hp_h",
+  "spec": {
+    "loss": "reg_hp",
+    "target": "y_h"
+  },
+  "seed": 1,
+  "iterations": 20000,
+  "minutes": 59.1,
+  "frozen": true
+}

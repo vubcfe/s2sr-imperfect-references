@@ -1,0 +1,12 @@
+# tested with Python 3.12, torch 2.7.0 (CUDA 12.6), numpy, scipy 1.17, pandas 3.0
+torch>=2.1
+numpy
+scipy
+pandas
+pyyaml
+h5py
+rasterio
+matplotlib
+tabulate
+huggingface_hub
+pytest

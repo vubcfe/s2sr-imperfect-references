@@ -1,0 +1,12 @@
+{
+  "scenario": "S0_clean",
+  "method": "wald",
+  "spec": {
+    "loss": "none",
+    "target": "y_reg"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 25.0,
+  "frozen": "part_a"
+}

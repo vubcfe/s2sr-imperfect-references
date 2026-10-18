@@ -1,0 +1,7 @@
+# E2 revision (18/10/2026, after manuscript review round 1): seeds 1-2 for the methods that had one seed
+../../.venv/bin/python scripts/p6_e2.py run --method naive_l1 --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --method reg_l1_nogain --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --method b_sim --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --method naive_l1 --seed 2 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --method reg_l1_nogain --seed 2 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --method b_sim --seed 2 --gpu {gpu}

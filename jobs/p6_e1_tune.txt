@@ -1,0 +1,13 @@
+# E1 weight tuning (configs/p6_e1.yaml): x0.1 / x1 / x10 of the default, 1/3 of the steps (N=20k assumed), S2_realistic
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method wald --seed 0 --gpu {gpu} --iterations 20000
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method cobi --weights '{"cobi": 0.1}' --out runs/p6_e1_tune/S2_realistic/cobi_w0.1/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method cobi --weights '{"cobi": 1.0}' --out runs/p6_e1_tune/S2_realistic/cobi_w1/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method cobi --weights '{"cobi": 10.0}' --out runs/p6_e1_tune/S2_realistic/cobi_w10/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method p6_global --weights '{"kd": 1e-5}' --out runs/p6_e1_tune/S2_realistic/kd_w1e-5/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method p6_global --weights '{"kd": 1e-4}' --out runs/p6_e1_tune/S2_realistic/kd_w1e-4/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method p6_global --weights '{"kd": 1e-3}' --out runs/p6_e1_tune/S2_realistic/kd_w1e-3/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method p6_global --weights '{"pcrd": 1e-4}' --out runs/p6_e1_tune/S2_realistic/pcrd_w1e-4/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method p6_global --weights '{"pcrd": 1e-2}' --out runs/p6_e1_tune/S2_realistic/pcrd_w1e-2/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method fdl --weights '{"fdl": 0.1}' --out runs/p6_e1_tune/S2_realistic/fdl_w0.1/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method fdl --weights '{"fdl": 1.0}' --out runs/p6_e1_tune/S2_realistic/fdl_w1/seed0
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --seed 0 --gpu {gpu} --iterations 6667 --method fdl --weights '{"fdl": 10.0}' --out runs/p6_e1_tune/S2_realistic/fdl_w10/seed0

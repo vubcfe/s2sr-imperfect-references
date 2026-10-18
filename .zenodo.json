@@ -1,0 +1,14 @@
+{
+  "title": "Imperfect cross-sensor references for Sentinel-2 super-resolution: code, results and derived data",
+  "upload_type": "software",
+  "description": "Code, configurations, results and derived data of the study of the SEN2NEON benchmark: per-tile registration and compensation of the contrast compression caused by the harmonisation regression, and their consequences for training and evaluating deep super-resolution networks for the Sentinel-2 20 m bands. The archive of the large files (corrected references of the real-data domain and model weights) is published as a separate dataset record (see the README).",
+  "creators": [
+    {"name": "Bui, Cao Vu", "affiliation": "Department of Artificial Intelligence, FPT University, Da Nang, Vietnam", "orcid": "0009-0000-7766-943X"},
+    {"name": "Nguyen, Hoang-Anh-Vu", "affiliation": "Department of Computing Fundamentals, FPT University, Da Nang, Vietnam"}
+  ],
+  "license": "MIT",
+  "keywords": ["Sentinel-2", "super-resolution", "deep learning", "reference data quality", "cross-sensor harmonisation", "image registration", "SEN2NEON"],
+  "related_identifiers": [
+    {"identifier": "10.1109/LGRS.2026.3703947", "relation": "isDerivedFrom", "scheme": "doi"}
+  ]
+}

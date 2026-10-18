@@ -1,0 +1,13 @@
+{
+  "scenario": "S1_shift",
+  "method": "shift_l1",
+  "spec": {
+    "loss": "shift_l1",
+    "target": "y_reg",
+    "radius": 0.5
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 63.4,
+  "frozen": "part_a"
+}

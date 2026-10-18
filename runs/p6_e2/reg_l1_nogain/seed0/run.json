@@ -1,0 +1,11 @@
+{
+  "method": "reg_l1_nogain",
+  "spec": {
+    "domain": "R",
+    "loss": "l1",
+    "target": "r_reg"
+  },
+  "seed": 0,
+  "minutes": 60.0,
+  "frozen": true
+}

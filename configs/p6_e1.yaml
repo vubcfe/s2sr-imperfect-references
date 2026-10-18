@@ -1,0 +1,91 @@
+# P6 experiment E1 (plan §7): which loss copes with cross-sensor reference errors? Run on domain S, where the true
+# 10 m target is known: the training target is corrupted as observed in E0, evaluation uses the clean target.
+# STATUS: FROZEN (part A 12/10/2026 18:50; auxiliary weights 12/10/2026 23:10 by the tuning rule).
+frozen: true
+seed: 2026
+e0_tiles: results/p6_e0/tiles.csv
+domain_s: data/p6_domain_s
+targets_dir: data/p6_e1
+runs_dir: runs/p6_e1
+
+# Validation sites of domain S are split by site: weights of auxiliary losses are tuned on `tune`, and the E1
+# endpoints are computed only on `evaluate` (no checkpoint selection: the final checkpoint is used).
+val_sites:
+  tune: [CLBJ, DSNY]
+  evaluate: [NOGP, SRER]
+
+scenarios:
+  - name: S0_clean          # no corruption (upper bound, sanity)
+    global_shift: null
+  - name: S1_shift          # one tile shift drawn from the E0 joint target-band shifts
+    global_shift: e0
+  - name: S2_realistic      # E0-like: tile shift + non-rigid residual in 15% of tiles + local surface change in 15%
+    global_shift: e0
+    nonrigid_frac: 0.15
+    nonrigid_rms: 0.3       # px (10 m); E0: 0.25-0.4 px in 13-16% of tiles with |dt| > 7 days
+    nonrigid_corr_px: 16
+    change_frac: 0.15
+    change_area: 0.10
+  - name: S3_stress         # every tile: 1 px shift + 0.4 px non-rigid field; 30% with surface change
+    global_shift: 1.0
+    nonrigid_frac: 1.0
+    nonrigid_rms: 0.4
+    nonrigid_corr_px: 16
+    change_frac: 0.30
+    change_area: 0.15
+
+training:
+  iterations: 20000          # fixed from the learning curves (S2_realistic, tune sites): Reg-L1 HP-corr 0.98766 at 20k vs
+                             # 0.98770 at 30k; P6-global 0.98652 vs 0.98669 (+0.00017, << the 0.01 H2 threshold)
+  teacher_iterations: 30000
+  batch: 16
+  crop: 128                  # 10 m pixels (1.28 km)
+  lr: 1.0e-4
+  warmup: 1000
+  workers: 6
+  log_every: 500
+  lambda_wald: 1.0
+  amp_bf16: false            # rejected: bf16 changes outputs by 15% of the high-pass signal std (fp16: 2.3%)
+  tf32: true                 # fp32 storage, TF32 convolutions: 0.2% of the high-pass std (measured 12/10/2026)
+  lambda_teacher_imitation: 1.0e-4   # PISR value
+
+# Methods: every one uses the same student, LFC, Wald loss, data and steps (plan §4.2). `target`: y (clean, only for
+# S0 reference), y_c (corrupted as delivered), y_reg (after the E0 registration). Auxiliary weights: defaults
+# below; a 3-value grid (x0.1, x1, x10) is run for kd, pcrd, cobi, fdl on S2_realistic with 1/3 of the steps and
+# the value with the best mean HP-corr on the `tune` sites is used everywhere.
+methods:
+  wald:      {loss: none, target: y_reg}                        # Wald-only student (also the FDL encoder)
+  naive_l1:  {loss: l1, target: y_c}
+  reg_l1:    {loss: l1, target: y_reg}
+  shift_l1:  {loss: shift_l1, target: y_reg, radius: 0.5}
+  cobi:      {loss: none, target: y_reg, weights: {cobi: 10.0}, cobi_ws: 0.05}
+  fdl:       {loss: none, target: y_reg, weights: {fdl: 0.1}}
+  pisr:      {loss: l1, target: y_reg, teacher: true, init_from_teacher: true, weights: {kd: 1.0e-5},
+              kd_highpass: false}
+  p6_local:  {loss: l1, target: y_reg, teacher: true, init_from_teacher: true, weights: {kd: 1.0e-5, pcrd: 1.0e-4},
+              kd_highpass: true, pcrd_mode: local}
+  p6_global: {loss: l1, target: y_reg, teacher: true, init_from_teacher: true, weights: {kd: 1.0e-5, pcrd: 1.0e-4},
+              kd_highpass: true, pcrd_mode: global}
+
+# Tuning result (S2_realistic, 6,667 steps, tune sites CLBJ+DSNY; mean HP-corr), one weight at a time:
+#   cobi  x0.1 0.97280 | x1 0.97716 | x10 0.98426 -> 10   (upper grid boundary)
+#   fdl   x0.1 0.97762 | x1 0.96322 | x10 0.95735 -> 0.1  (lower boundary)
+#   kd    1e-5 0.984611 | 1e-4 0.984610 | 1e-3 0.984559 -> 1e-5 (flat: KD has almost no effect)
+#   pcrd  1e-4 0.98525 | 1e-3 0.98461 | 1e-2 0.98247 -> 1e-4 (lower boundary)
+# Three of four optima lie on a grid boundary; per the pre-specified rule the grid was NOT extended after seeing
+# the results (reported as a limitation).
+
+# Endpoints (on `evaluate` sites, clean target): HP-corr (primary), HP-PSNR, edge-position error; mean over the six
+# bands per tile, then tile bootstrap (2,000) for CIs.
+# Calibration of the thresholds (12/10/2026, before any E1 run; tune sites, domain S): bicubic HP-corr 0.854,
+# Reg-L1 (20k steps) 0.988; shifting the Reg-L1 output by 0.25 / 0.5 px lowers HP-corr by 0.021 / 0.077 and raises
+# the edge error by 0.28 / 0.55 px. So a 0.01 HP-corr drop ~ a 0.12 px misplacement (7.5% of the bicubic-to-Reg-L1
+# range) and the 0.05 px edge margin ~ 0.05 px misplacement: thresholds kept.
+# Learning curves (S2_realistic, tune sites), HP-corr at 5k / 10k / 20k / 30k steps:
+#   Reg-L1    0.98545 / 0.98711 / 0.98766 / 0.98770
+#   P6-global 0.98483 / 0.98575 / 0.98652 / 0.98669 (slightly slower; 20k costs it ~0.0002)
+# H2 rule (pre-specified): a loss is "robust" in a scenario if its HP-corr drop relative to its own S0 value is
+# < 0.01 with the bootstrap CI upper bound < 0.02; Naive-L1 "degrades" if its drop is > 0.01 with CI excluding 0.
+# The loss carried into E2 = highest HP-corr on S2_realistic, provided its edge-position error does not exceed
+# Reg-L1's by more than 0.05 px; comparisons among losses Holm-adjusted. pCRD-L enters E2 only if it beats
+# Shift-L1 under this rule.

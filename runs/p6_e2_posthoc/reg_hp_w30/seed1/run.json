@@ -1,0 +1,12 @@
+{
+  "method": "reg_hp_w30",
+  "spec": {
+    "domain": "R",
+    "loss": "reg_hp",
+    "target": "r_reg",
+    "lambda_wald": 30.0
+  },
+  "seed": 1,
+  "minutes": 59.4,
+  "frozen": true
+}

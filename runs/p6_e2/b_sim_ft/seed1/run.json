@@ -1,0 +1,23 @@
+{
+  "method": "b_sim_ft",
+  "spec": {
+    "stages": [
+      {
+        "domain": "S",
+        "loss": "l1",
+        "target": "y",
+        "fraction": 0.5
+      },
+      {
+        "domain": "R",
+        "loss": "shift_l1",
+        "target": "y",
+        "radius": 0.5,
+        "fraction": 0.5
+      }
+    ]
+  },
+  "seed": 1,
+  "minutes": 61.3,
+  "frozen": true
+}

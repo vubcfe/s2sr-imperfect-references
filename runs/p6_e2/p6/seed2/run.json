@@ -1,0 +1,20 @@
+{
+  "method": "p6",
+  "spec": {
+    "domain": "R",
+    "loss": "shift_l1",
+    "target": "y",
+    "radius": 0.5,
+    "teacher": true,
+    "init_from_teacher": true,
+    "weights": {
+      "kd": 1e-05,
+      "pcrd": 0.0001
+    },
+    "kd_highpass": true,
+    "pcrd_mode": "global"
+  },
+  "seed": 2,
+  "minutes": 108.5,
+  "frozen": true
+}

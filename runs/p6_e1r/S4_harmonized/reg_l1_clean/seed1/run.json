@@ -1,0 +1,12 @@
+{
+  "scenario": "S4_harmonized",
+  "method": "reg_l1_clean",
+  "spec": {
+    "loss": "l1",
+    "target": "y"
+  },
+  "seed": 1,
+  "iterations": 20000,
+  "minutes": 59.9,
+  "frozen": true
+}

@@ -1,0 +1,21 @@
+# E1 extra seeds (approved 13/10/2026): seed variance for the core methods on S0_clean and S2_realistic; starts after E1 part B
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py teacher --scenario S2_realistic --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py teacher --scenario S0_clean --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py teacher --scenario S2_realistic --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py teacher --scenario S0_clean --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method p6_global --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method shift_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method reg_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method naive_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method p6_global --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method shift_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method reg_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method naive_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method p6_global --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method shift_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method reg_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method naive_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method p6_global --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method shift_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method reg_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1_b/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method naive_l1 --seed 2 --gpu {gpu}

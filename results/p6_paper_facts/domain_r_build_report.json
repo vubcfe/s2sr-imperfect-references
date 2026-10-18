@@ -1,0 +1,30 @@
+{
+  "train": {
+    "n_tiles": 287,
+    "n_sites": 27,
+    "skipped": []
+  },
+  "val": {
+    "n_tiles": 83,
+    "n_sites": 4,
+    "skipped": []
+  },
+  "test": {
+    "n_tiles": 151,
+    "n_sites": 9,
+    "skipped": []
+  },
+  "train_dt40": {
+    "n_tiles": 1019,
+    "n_sites": 34,
+    "skipped": []
+  },
+  "a_hat_median": {
+    "B05": 0.6299,
+    "B06": 0.542,
+    "B07": 0.5616,
+    "B11": 0.5881,
+    "B12": 0.6398,
+    "B8A": 0.5552
+  }
+}

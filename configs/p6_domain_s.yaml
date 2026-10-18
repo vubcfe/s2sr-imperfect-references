@@ -1,0 +1,36 @@
+# P6 domain S: self-aligned Sentinel-2-like pairs simulated from the SEN2NEON AVIRIS-NG reference (plan §3).
+# Built by scripts/p6_build_domain_s.py from the clean tiles of the train and validation sites of
+# configs/p6_split.yaml. Test sites are never used.
+split: configs/p6_split.yaml
+seed: 2026
+
+# y_S (target, 10 m)  = MTF aggregation of the 2.5 m reference, ratio 4 (same definition as the real-reference r)
+# g_S (guide, 10 m)   = MTF aggregation of the AVIRIS B2/B3/B4/B8, ratio 4, 10 m-band MTF
+# x_S (input, 20 m)   = direct MTF degradation of the 2.5 m reference, ratio 8, nominal 20 m-band MTF (as in E0);
+#                       x_S is therefore close to, but not exactly, D(y_S); the gap is reported by the build script.
+mtf_config: configs/mtf.yaml
+
+# Sensor noise added to x_S and g_S: zero-mean Gaussian, standard deviation in reflectance per band.
+# ASSUMPTION (order of magnitude): Sentinel-2 L1C SNR requirements at the reference radiance (B2 154, B3 168,
+# B4 142, B5 117, B6 89, B7 105, B8 174, B8A 72, B11 100, B12 100), converted with an approximate reference
+# reflectance per band. In-flight SNR is higher than the requirement, so these values are conservative.
+# Sensitivity datasets are built with noise_scale 0.5 and 2.0.
+noise_sigma:
+  B02: 0.0013
+  B03: 0.0011
+  B04: 0.0011
+  B08: 0.0010
+  B05: 0.0012
+  B06: 0.0013
+  B07: 0.0012
+  B8A: 0.0011
+  B11: 0.0006
+  B12: 0.0005
+noise_scale: 1.0
+
+# Inter-band misregistration of the 20 m bands (Sentinel-2 requirement: <= 0.3 px at 20 m for 99.7%):
+# each target band shifted by an independent uniform offset in [-max, max] px of the 20 m grid.
+interband_shift_max_px20: 0.1
+
+# Quantisation of every stored product (Sentinel-2 L2A digital numbers).
+quantisation: 1.0e-4

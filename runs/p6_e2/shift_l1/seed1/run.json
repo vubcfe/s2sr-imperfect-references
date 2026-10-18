@@ -1,0 +1,12 @@
+{
+  "method": "shift_l1",
+  "spec": {
+    "domain": "R",
+    "loss": "shift_l1",
+    "target": "y",
+    "radius": 0.5
+  },
+  "seed": 1,
+  "minutes": 32.5,
+  "frozen": true
+}

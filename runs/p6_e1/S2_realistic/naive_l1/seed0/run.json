@@ -1,0 +1,12 @@
+{
+  "scenario": "S2_realistic",
+  "method": "naive_l1",
+  "spec": {
+    "loss": "l1",
+    "target": "y_c"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 58.9,
+  "frozen": "part_a"
+}

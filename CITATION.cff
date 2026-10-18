@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this software or the derived data, please cite the paper and SEN2NEON."
+title: "Imperfect cross-sensor references for Sentinel-2 super-resolution: code, results and derived data"
+version: 1.0.0
+date-released: 2026-10-18
+license: MIT
+repository-code: "https://github.com/vubcfe/s2sr-imperfect-references"
+authors:
+  - family-names: "Bui"
+    given-names: "Cao Vu"
+    affiliation: "Department of Artificial Intelligence, FPT University, Da Nang, Vietnam"
+    email: "vubc@fe.edu.vn"
+    orcid: "https://orcid.org/0009-0000-7766-943X"
+  - family-names: "Nguyen"
+    given-names: "Hoang-Anh-Vu"
+    affiliation: "Department of Computing Fundamentals, FPT University, Da Nang, Vietnam"
+    email: "vunha2@fe.edu.vn"
+keywords: [Sentinel-2, super-resolution, deep learning, reference data quality, cross-sensor harmonisation, image registration, SEN2NEON]
+preferred-citation:
+  type: article
+  title: "Imperfect cross-sensor references for Sentinel-2 super-resolution: hidden benchmark errors and their consequences for training and evaluating deep networks"
+  authors:
+    - family-names: "Bui"
+      given-names: "Cao Vu"
+    - family-names: "Nguyen"
+      given-names: "Hoang-Anh-Vu"
+  journal: "PFG – Journal of Photogrammetry, Remote Sensing and Geoinformation Science"
+  year: 2026
+  status: submitted
+references:
+  - type: article
+    title: "SEN2NEON: Enabling Quantitative Benchmarking of Sentinel-2 Superresolution for All Multispectral Bands"
+    authors:
+      - family-names: Donike
+        given-names: Simon
+      - family-names: Aybar
+        given-names: Cesar
+      - family-names: Contreras
+        given-names: Julio
+      - family-names: "Gómez-Chova"
+        given-names: Luis
+    journal: "IEEE Geoscience and Remote Sensing Letters"
+    volume: 23
+    year: 2026
+    doi: "10.1109/LGRS.2026.3703947"

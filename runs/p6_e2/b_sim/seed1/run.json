@@ -1,0 +1,11 @@
+{
+  "method": "b_sim",
+  "spec": {
+    "domain": "S",
+    "loss": "l1",
+    "target": "y"
+  },
+  "seed": 1,
+  "minutes": 59.1,
+  "frozen": true
+}

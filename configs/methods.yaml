@@ -1,0 +1,12 @@
+# Methods in the P1 benchmark. Learned models are matched to ~1.8 M parameters (+-10 %)
+# so that differences come from design, not size. Check with: python scripts/count_params.py
+methods:
+  bicubic:       {arch: bicubic}
+  atprk:         {arch: atprk}            # external implementation, see models/__init__.py
+  dsen2:         {arch: dsen2, params: {nf: 128, n_blocks: 6}}
+  dsen2_ca_hpf:  {arch: dsen2, params: {nf: 128, n_blocks: 6, channel_attention: true, high_pass: true}}
+  lfc_guided:    {arch: edsr, params: {nf: 80, n_blocks: 16, guided: true}, lfc: true}
+  edsr_u:        {arch: edsr, params: {nf: 80, n_blocks: 16, guided: false}}
+  edsr_g:        {arch: edsr, params: {nf: 80, n_blocks: 16, guided: true}}
+  rcan_u:        {arch: rcan, params: {nf: 64, n_groups: 5, n_rcab: 4, guided: false}}
+  rcan_g:        {arch: rcan, params: {nf: 64, n_groups: 5, n_rcab: 4, guided: true}}

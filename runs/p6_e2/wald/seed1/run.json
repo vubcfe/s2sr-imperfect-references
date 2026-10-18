@@ -1,0 +1,11 @@
+{
+  "method": "wald",
+  "spec": {
+    "domain": "R",
+    "loss": "none",
+    "target": "y"
+  },
+  "seed": 1,
+  "minutes": 25.6,
+  "frozen": true
+}

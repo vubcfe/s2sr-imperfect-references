@@ -1,0 +1,21 @@
+# large files: archived on Zenodo, not in git
+zenodo_upload/
+data/
+*.pt
+*.h5
+*.npz
+!runs/p6_e2/analysis/qualitative.npz
+# local outputs
+__pycache__/
+*.egg-info/
+.pytest_cache/
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.log
+paper/*.out
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.synctex.gz
+paper/main.pdf
+paper/figures/*.png

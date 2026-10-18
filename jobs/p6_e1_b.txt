@@ -1,0 +1,21 @@
+# E1 part B (config frozen 12/10/2026 23:10): methods with auxiliary weights; FDL last (needs each scenario's Wald model from part A)
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method p6_global --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method p6_local --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method pisr --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method cobi --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method p6_global --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method p6_local --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method pisr --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method cobi --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method p6_global --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method p6_local --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method pisr --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method cobi --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method p6_global --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method p6_local --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method pisr --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method cobi --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method fdl --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method fdl --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method fdl --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method fdl --seed 0 --gpu {gpu}

@@ -1,0 +1,12 @@
+{
+  "scenario": "S3_stress",
+  "method": "reg_l1",
+  "spec": {
+    "loss": "l1",
+    "target": "y_reg"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 116.3,
+  "frozen": true
+}

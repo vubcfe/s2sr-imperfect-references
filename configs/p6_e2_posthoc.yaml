@@ -1,0 +1,34 @@
+# P6 E2 POST-HOC (exploratory, decided 17/10/2026 after the E2 results; NOT part of the pre-specified tests).
+# Question: does a larger Wald-loss weight remove the low-frequency inconsistency of Reg-HP (Wald self-consistency
+# PSNR 42.0 dB vs 47.7 dB for Reg-L1 on the test sites) while keeping its HP-corr advantage (0.8364 vs 0.8292)?
+# Everything as configs/p6_e2.yaml except lambda_wald per method.
+# Selection rule (fixed before running; uses the 4 VALIDATION sites only, seed 0):
+#   candidates lambda_wald in {1 (existing reg_hp), 3, 10, 30}; keep those whose val Wald PSNR is at least
+#   val Wald PSNR(Reg-L1, seed 0) - 0.5 dB; choose the one with the highest val HP-corr (reference y); if none
+#   qualifies, choose the highest val Wald PSNR and report that the trade-off is not removed.
+#   The chosen weight then gets seeds 1 and 2. Test-site results of every grid point are reported as a
+#   sensitivity curve, but they are not used for the choice.
+frozen: true
+seed: 2026
+domain_r: data/p6_domain_r
+domain_s: data/p6_domain_s
+runs_dir: runs/p6_e2_posthoc
+eval_val: true
+training:                    # identical to E1 (configs/p6_e1.yaml)
+  iterations: 20000
+  teacher_iterations: 30000
+  batch: 16
+  crop: 128
+  lr: 1.0e-4
+  warmup: 1000
+  workers: 6
+  log_every: 500
+  lambda_wald: 1.0
+  amp_bf16: false
+  tf32: true
+  lambda_teacher_imitation: 1.0e-4
+
+methods:
+  reg_hp_w3:  {domain: R, loss: reg_hp, target: r_reg, lambda_wald: 3.0}
+  reg_hp_w10: {domain: R, loss: reg_hp, target: r_reg, lambda_wald: 10.0}
+  reg_hp_w30: {domain: R, loss: reg_hp, target: r_reg, lambda_wald: 30.0}

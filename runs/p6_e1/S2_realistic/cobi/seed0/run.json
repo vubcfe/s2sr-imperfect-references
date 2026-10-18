@@ -1,0 +1,16 @@
+{
+  "scenario": "S2_realistic",
+  "method": "cobi",
+  "spec": {
+    "loss": "none",
+    "target": "y_reg",
+    "weights": {
+      "cobi": 10.0
+    },
+    "cobi_ws": 0.05
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 65.6,
+  "frozen": true
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "S2_realistic",
+  "method": "wald",
+  "spec": {
+    "loss": "none",
+    "target": "y_reg"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 25.4,
+  "frozen": false
+}

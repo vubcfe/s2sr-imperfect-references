@@ -1,0 +1,11 @@
+{
+  "method": "naive_l1",
+  "spec": {
+    "domain": "R",
+    "loss": "l1",
+    "target": "r_raw"
+  },
+  "seed": 2,
+  "minutes": 60.0,
+  "frozen": true
+}

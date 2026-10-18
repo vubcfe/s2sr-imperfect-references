@@ -1,0 +1,11 @@
+{
+  "method": "reg_hp",
+  "spec": {
+    "domain": "R",
+    "loss": "reg_hp",
+    "target": "r_reg"
+  },
+  "seed": 0,
+  "minutes": 59.2,
+  "frozen": true
+}

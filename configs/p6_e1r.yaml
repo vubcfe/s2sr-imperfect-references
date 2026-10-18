@@ -1,0 +1,38 @@
+# P6 experiment E1-R (14/10/2026): consequence of the SEN2NEON radiometric harmonisation (OLS of interpolated S2 on
+# the AVIRIS reference, GRSL 2026 Eq. 2) for SR training, on domain S where the true target y is known.
+# Targets from scripts/p6_make_e1r_targets.py: y_h = m y + n (harmonisation emulated per tile and band at 2.5 m),
+# y_inv = inversion with one frequency-independent low-pass gain (plan §4.1). No geometric corruption.
+# Same student, budget and protocol as E1 (configs/p6_e1.yaml, frozen); 3 seeds per method.
+# Endpoints on the E1 `evaluate` sites against the clean y: HP-gain (amplitude of detail; 1 = right contrast),
+# HP-PSNR (amplitude-sensitive), HP-corr (amplitude-blind). Pre-specified expectations: training on y_h lowers HP-gain
+# towards the compression factor; y_inv restores it to the clean-target level; Reg-HP is insensitive to the gain.
+frozen: true
+seed: 2026
+domain_s: data/p6_domain_s
+targets_dir: data/p6_e1r
+runs_dir: runs/p6_e1r
+val_sites:
+  tune: [CLBJ, DSNY]
+  evaluate: [NOGP, SRER]
+scenarios:
+  - name: S4_harmonized
+training:
+  iterations: 20000
+  teacher_iterations: 30000
+  batch: 16
+  crop: 128
+  lr: 1.0e-4
+  warmup: 1000
+  workers: 6
+  log_every: 500
+  lambda_wald: 1.0
+  amp_bf16: false
+  tf32: true
+  lambda_teacher_imitation: 1.0e-4
+methods:
+  reg_l1_clean: {loss: l1, target: y}       # reference: the true target
+  reg_l1_h:     {loss: l1, target: y_h}     # as SEN2NEON is used today
+  reg_l1_inv:   {loss: l1, target: y_inv}   # proposed correction
+  reg_hp_h:     {loss: reg_hp, target: y_h} # gain-invariant high-pass loss on the uncorrected reference
+# AMENDMENT 15/10/2026: reg_hp_h rerun (3 seeds) with the corrected Reg-HP loss (see configs/p6_e2.yaml); the v1
+# results (detached scale, HP-gain 0.85) are kept in runs/p6_e1r_superseded/reg_hp_h_v1.

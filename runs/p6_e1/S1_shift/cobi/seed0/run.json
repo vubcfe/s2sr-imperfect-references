@@ -1,0 +1,16 @@
+{
+  "scenario": "S1_shift",
+  "method": "cobi",
+  "spec": {
+    "loss": "none",
+    "target": "y_reg",
+    "weights": {
+      "cobi": 10.0
+    },
+    "cobi_ws": 0.05
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 72.0,
+  "frozen": true
+}

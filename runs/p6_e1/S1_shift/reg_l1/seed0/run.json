@@ -1,0 +1,12 @@
+{
+  "scenario": "S1_shift",
+  "method": "reg_l1",
+  "spec": {
+    "loss": "l1",
+    "target": "y_reg"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 58.8,
+  "frozen": "part_a"
+}

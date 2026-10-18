@@ -1,0 +1,7 @@
+# E2 post-hoc (configs/p6_e2_posthoc.yaml): Wald-weight grid for Reg-HP, seed 0; val evaluation of the baselines
+../../.venv/bin/python scripts/p6_e2.py run --config configs/p6_e2_posthoc.yaml --method reg_hp_w10 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --config configs/p6_e2_posthoc.yaml --method reg_hp_w3 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py run --config configs/p6_e2_posthoc.yaml --method reg_hp_w30 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py evalval --config configs/p6_e2_posthoc.yaml --ckpt_dir runs/p6_e2/reg_hp/seed0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py evalval --config configs/p6_e2_posthoc.yaml --ckpt_dir runs/p6_e2/reg_l1/seed0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e2.py evalval --config configs/p6_e2_posthoc.yaml --ckpt_dir runs/p6_e2/wald/seed0 --gpu {gpu}

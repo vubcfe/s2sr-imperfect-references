@@ -1,0 +1,25 @@
+# E2 (configs/p6_e2.yaml frozen 14/10/2026): starts after E1-R
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py teacher --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py teacher --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py teacher --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method p6 --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method shift_l1 --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_l1 --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_hp --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method b_sim_ft --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method wald --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method p6 --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method shift_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_l1 --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_hp --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method b_sim_ft --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method wald --seed 1 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method p6 --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method shift_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_l1 --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_hp --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method b_sim_ft --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method wald --seed 2 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method naive_l1 --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method reg_l1_nogain --seed 0 --gpu {gpu}
+until [ -f queues/e1r/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e2.py run --method b_sim --seed 0 --gpu {gpu}

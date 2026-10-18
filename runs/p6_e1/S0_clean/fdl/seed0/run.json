@@ -1,0 +1,15 @@
+{
+  "scenario": "S0_clean",
+  "method": "fdl",
+  "spec": {
+    "loss": "none",
+    "target": "y_reg",
+    "weights": {
+      "fdl": 0.1
+    }
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 130.2,
+  "frozen": true
+}

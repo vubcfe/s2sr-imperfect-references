@@ -1,0 +1,4 @@
+# E1-R Reg-HP rerun with the corrected (scale-invariant) loss, 15/10/2026; starts after E2
+until [ -f queues/e2/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_hp_h --seed 0 --gpu {gpu}
+until [ -f queues/e2/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_hp_h --seed 1 --gpu {gpu}
+until [ -f queues/e2/DONE ]; do sleep 300; done; ../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_hp_h --seed 2 --gpu {gpu}

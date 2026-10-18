@@ -1,0 +1,13 @@
+# E1-R (configs/p6_e1r.yaml, frozen 14/10/2026): harmonisation consequence, 4 methods x 3 seeds
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_h --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_inv --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_clean --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_hp_h --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_h --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_inv --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_clean --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_hp_h --seed 1 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_h --seed 2 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_inv --seed 2 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_l1_clean --seed 2 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --config configs/p6_e1r.yaml --scenario S4_harmonized --method reg_hp_h --seed 2 --gpu {gpu}

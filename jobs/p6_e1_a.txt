@@ -1,0 +1,20 @@
+# E1 part A (frozen 12/10/2026): teachers first, then methods without auxiliary weights
+../../.venv/bin/python scripts/p6_e1.py teacher --scenario S0_clean --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py teacher --scenario S1_shift --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py teacher --scenario S3_stress --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method wald --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method naive_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method reg_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S2_realistic --method shift_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method wald --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method naive_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method reg_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S1_shift --method shift_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method wald --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method naive_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method reg_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S0_clean --method shift_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method wald --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method naive_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method reg_l1 --seed 0 --gpu {gpu}
+../../.venv/bin/python scripts/p6_e1.py run --scenario S3_stress --method shift_l1 --seed 0 --gpu {gpu}

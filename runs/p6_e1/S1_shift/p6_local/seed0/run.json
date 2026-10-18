@@ -1,0 +1,20 @@
+{
+  "scenario": "S1_shift",
+  "method": "p6_local",
+  "spec": {
+    "loss": "l1",
+    "target": "y_reg",
+    "teacher": true,
+    "init_from_teacher": true,
+    "weights": {
+      "kd": 1e-05,
+      "pcrd": 0.0001
+    },
+    "kd_highpass": true,
+    "pcrd_mode": "local"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 105.1,
+  "frozen": true
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "S0_clean",
+  "method": "reg_l1",
+  "spec": {
+    "loss": "l1",
+    "target": "y_reg"
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 60.3,
+  "frozen": "part_a"
+}

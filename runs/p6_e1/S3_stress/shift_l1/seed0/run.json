@@ -1,0 +1,13 @@
+{
+  "scenario": "S3_stress",
+  "method": "shift_l1",
+  "spec": {
+    "loss": "shift_l1",
+    "target": "y_reg",
+    "radius": 0.5
+  },
+  "seed": 0,
+  "iterations": 20000,
+  "minutes": 123.4,
+  "frozen": true
+}

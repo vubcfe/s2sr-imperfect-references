@@ -1,0 +1,66 @@
+# P6 experiment E2 (plan §6–§8): learning guided SR of the six 20 m bands from the real SEN2NEON reference.
+# STATUS: FROZEN 14/10/2026, before any E2 run. Data: data/p6_domain_r (scripts/p6_build_domain_r.py) with the
+# site split of configs/p6_split.yaml; domain S (data/p6_domain_s) for B-sim.
+# References per tile: r_raw (as delivered), r_reg (E0 joint target-band shift removed), y = r_corr (r_reg with the
+# OLS-harmonisation contrast loss inverted by one low-pass gain per band; median gains 0.54-0.64).
+frozen: true
+seed: 2026
+domain_r: data/p6_domain_r
+domain_s: data/p6_domain_s
+runs_dir: runs/p6_e2
+
+training:                    # identical to E1 (configs/p6_e1.yaml)
+  iterations: 20000
+  teacher_iterations: 30000
+  batch: 16
+  crop: 128
+  lr: 1.0e-4
+  warmup: 1000
+  workers: 6
+  log_every: 500
+  lambda_wald: 1.0
+  amp_bf16: false
+  tf32: true
+  lambda_teacher_imitation: 1.0e-4
+
+# Every method: same student (guided EDSR + LFC), Wald loss on the same patch, N = 20k steps, final checkpoint.
+# Shift-L1 is the loss carried from E1 (H2 rule). Auxiliary weights are the E1 ones (no re-tuning on real data).
+methods:
+  wald:          {domain: R, loss: none, target: y}
+  naive_l1:      {domain: R, loss: l1, target: r_raw}
+  reg_l1_nogain: {domain: R, loss: l1, target: r_reg}
+  reg_l1:        {domain: R, loss: l1, target: y}
+  shift_l1:      {domain: R, loss: shift_l1, target: y, radius: 0.5}
+  reg_hp:        {domain: R, loss: reg_hp, target: r_reg}            # H1 pre-specified method (gain-invariant)
+  b_sim:         {domain: S, loss: l1, target: y}                    # trained on domain S only, N steps
+  b_sim_ft:      {stages: [{domain: S, loss: l1, target: y, fraction: 0.5},
+                           {domain: R, loss: shift_l1, target: y, radius: 0.5, fraction: 0.5}]}
+  p6:            {domain: R, loss: shift_l1, target: y, radius: 0.5, teacher: true, init_from_teacher: true,
+                  weights: {kd: 1.0e-5, pcrd: 1.0e-4}, kd_highpass: true, pcrd_mode: global}
+seeds:
+  core: [0, 1, 2]            # wald, reg_l1, shift_l1, reg_hp, b_sim_ft, p6
+  single: [0]                # naive_l1, reg_l1_nogain, b_sim
+
+# Evaluation: test sites (9 sites, 151 tiles, |dt| <= 7 days), final checkpoints.
+#  primary references: y (corrected); sensitivity: r_reg (contrast as delivered).
+#  co-primary endpoints (plan §6): HP-PSNR and HP-corr; also HP-gain (detail amplitude) and edge-position error;
+#  Wald self-consistency (PSNR of f(D(x), D(g)) vs x on the test tiles) for the non-inferiority part of H1.
+#  Statistics: per-site means, site-bootstrap CIs (2,000), 3-seed means for core methods.
+# H1: Reg-HP beats Wald on both co-primary endpoints (site-bootstrap CIs of the differences exclude 0) and is not
+#     worse than Wald by more than 0.10 dB on the Wald self-consistency PSNR.
+# H3 (hierarchical): step 1 P6 vs B-sim+FT on both endpoints; only if step 1 holds, step 2 vs Reg-HP (Holm).
+# Deviations from plan v0.6, recorded before running: (1) Mimicked Alignment is not run (its purpose, aligning the
+# LR input to the reference, is covered by the per-tile registration since E0 shows the misalignment is mostly a
+# tile translation); (2) the Decision-2 oracle gate (G_b) is not applied before P6, P6 is simply included;
+# (3) the Wald metric is computed on the SEN2NEON test tiles (no Vietnamese W domain in this study).
+# AMENDMENT 15/10/2026 (after reg_hp seed 0, before any other reg_hp run): implementation fault in Reg-HP, not a
+# change of the method. The prediction's high-pass was divided by its own sd with the gradient detached
+# (train.py: ref_for_scale=pred.detach()), so each step shrank the detail by the L1 regression-to-the-mean factor;
+# on real data (HP-corr ~0.81) the amplitude collapsed (HP-gain 0.32 vs y) and the Wald self-consistency fell to
+# 32.9 dB (Wald model 48.1 dB). Fix: the scale keeps its gradient, the loss is exactly scale-invariant in the
+# prediction, as the plan intends (amplitude left to the Wald loss and LFC); test_reg_hp_gradient_does_not_shrink_
+# detail. The v1 seed-0 run is kept in runs/p6_e2_superseded/reg_hp_v1 and reported as such; all three reg_hp seeds
+# are run with the fixed loss.
+# AMENDMENT 18/10/2026 (after internal manuscript review round 1, all pre-specified runs finished): the single-seed
+# methods naive_l1, reg_l1_nogain and b_sim also received seeds 1 and 2 (jobs/p6_e2_seeds12.txt), so every method
+# has seeds [0, 1, 2]. The pre-specified tests (H1, H3) are unchanged; they do not involve these methods.
