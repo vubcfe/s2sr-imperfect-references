@@ -1,5 +1,7 @@
 # Imperfect cross-sensor references for Sentinel-2 super-resolution
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23448595.svg)](https://doi.org/10.5281/zenodo.23448595)
+
 Code, configurations, results and derived data for the paper
 
 > *Imperfect cross-sensor references for Sentinel-2 super-resolution: hidden benchmark errors and their
@@ -26,7 +28,8 @@ super-resolution training and evaluation in simulation (domain S) and on nine re
 | `paper/` | LaTeX source, bibliography, figures and `make_figures.py` |
 
 Model weights and the prepared real-data domain (corrected references) are too large for git and are archived on
-Zenodo (see below).
+Zenodo as a separate dataset record (see below; upload in progress, public at the latest on publication of
+the paper).
 
 ## Installation
 
